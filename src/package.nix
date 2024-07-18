@@ -3,7 +3,6 @@
   src,
   name,
   bun ? pkgs.bun,
-  createExecutable ? true,
   outputHash,
   outputHashAlgo ? "sha256",
   outputHashMode ? "recursive",
@@ -27,13 +26,5 @@ pkgs.stdenv.mkDerivation {
     ''
       mkdir -p $out/bin;
       cp -r ./dist/* $out/bin;
-    '';
-  fixupPhase = # bash
-    ''
-      if [ -n "${createExecutable}" ]; then
-        for f in $out/bin/*; do
-          sed -i '1s|^.*$|#!${pkgs.bun}/bin|' $f
-        done
-      fi
     '';
 }
