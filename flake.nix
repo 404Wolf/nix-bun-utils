@@ -1,5 +1,5 @@
 {
-  description = "{{ cookiecutter.description }}";
+  description = "Builder for bun packages that uses fixed output derivation";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -18,14 +18,7 @@
         pkgs = import nixpkgs { inherit system; };
       in
       {
-        packages.default =         devShells = {
-          default = pkgs.mkShell {
-            packages = [
-              pkgs.bun
-              pkgs.typescript
-            ];
-          };
-        };
+        lib.buildBunPackage = pkgs.callPackage ./src/package.nix;
       }
     );
 }
