@@ -3,6 +3,7 @@
   src,
   name,
   bun ? pkgs.bun,
+  buildCommand ? "build",
   outputHash,
   outputHashAlgo ? "sha256",
   outputHashMode ? "recursive",
@@ -20,7 +21,7 @@ pkgs.stdenv.mkDerivation {
   buildPhase = # bash
     ''
       bun install
-      bun run nix:build
+      bun run ${buildCommand}
     '';
   installPhase = # bash
     ''
