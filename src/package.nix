@@ -21,14 +21,14 @@ pkgs.stdenv.mkDerivation {
   buildPhase = # bash
     ''
       bun install
-      bun run build
+      bun run nix:build
     '';
   installPhase = # bash
     ''
       mkdir -p $out/bin;
       cp -r ./dist/* $out/bin;
     '';
-  postFixupPhase = # bash
+  fixupPhase = # bash
     ''
       if [ -n "${createExecutable}" ]; then
         for f in $out/bin/*; do
